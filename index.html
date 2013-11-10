@@ -1,0 +1,1571 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Yoav Weiss - Responsive images techniquess and beyond</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Responsive Images Techniques &amp; Beyond</h1>
+                    <p> <a href="https://twitter.com/yoavweiss">Yoav Weiss</a></p>
+                    <p>Velocity EU - London, November 2013</p>
+                    <p><a href="https://yoavweiss.github.io/velocity-eu-13-presentation/">yoavweiss.github.io/velocity-eu-13-presentation</a></p>
+                    <aside class="notes">
+                        here to talk about responsive images, why they're important, what are the use cases and what you can do about it today.
+                        Then I'll also give an overview of what the future might look like
+                        <p> Need to prepare before: sizersoze test page + results, har before and after preloader</p>
+                    </aside>
+				</section>
+                <section>
+                    <h2>Who????</h2>
+                    <ul style="list-style: none">
+                        <li class="fragment"><img src="resources/ricg.png"></li>
+                        <li class="fragment"><img src="resources/chromium_logo.png" height="150px">
+                        <img src="resources/Webkit_Logo.png" height="150px"></li>
+                        <li class="fragment">Picture prototype</li>
+                        <li class="fragment">srcset implementation</li>
+                    </ul>
+
+                    <aside class="notes">
+                        Working on resonsive images in my spare time for the last 2 years
+                        RICG, Blink, WebKit
+                        implemented picture prototype, srcset
+                        Went over all the current techniques
+                        Here to share that roller-coaster journey
+                    </aside>
+                </section>
+                <section>
+                    <h2>Responsive images problem</h2>
+                    <p class="fragment">Load properly dimensioned images that fit the page's design in an efficient manner</p>
+                    <aside class="notes">
+                        who knows what the responsive image probem is?
+                    </aside>
+                </section>
+                <section>
+                    <h2>Why bother?</h2>
+                    <img src="resources/troll_tiny.png">
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>A trip down memory lane</h2>
+                    <aside class="notes">
+                    </aside>
+                </section>
+                <section>
+                    <h2>In the begining - mobile only sites</h2>
+                    <div style="width: 1200px; margin-left: -120px"><img src="resources/wap-2-0-logo-primary.jpg">
+                    <img src="resources/Helio_wap2.jpg" width="500px">
+                    <img src="resources/xhtml_mobil.jpg" style=""></div>
+                    <aside class="notes">
+                        <p>Mid 2000s, mobile only sites. Very light weight.</p>
+                        <p>iPhone, slightly more content, but still mobile-only</p>
+                    </aside>
+                </section>
+                <section>
+                    <h2>Then - iPhone</h2>
+                    <p><img src="resources/cnn-regular-vs-mobile1.jpg"></p>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Then - RWD happened</h2>
+                    <p><img src="resources/mashable-responsive-design.jpg"></p>
+                    <aside class="notes">
+                        <p>RWD became a thing</p>
+                        <p>One code base to rule them all</p>
+                        <p>Awesome</p>
+                    </aside>
+				</section>
+                <section>
+                    <h2>Images?</h2>
+                    <p class="fragment">Not a problem!</p>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    Send the largest image you'd ever need
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    Let the browser resize it
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>EAZZZZZZY!!!</h2>
+                    <p><img src="resources/proud.gif"></p>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Well...</h2>
+                    <p><img src="resources/faceplant.gif"></p>
+                    <aside class="notes">
+                        That turned out to be... sub-optimal.
+                    </aside>
+				</section>
+                <section>
+                    <h2>This led to
+                    <span class="fragment" style="font-size: 1.75em">BLOAT!!!</></h2>
+                    <p><img src="resources/bloat.jpg"></p>
+                    <aside class="notes">
+                        <p>Mobile experience became better, but slower</p>
+                        <p>"a responsive site" became a synonym of "a slow site"</p>
+                    </aside>
+                </section>
+                <section>
+                    <h2>72% Serve same resources</h2>
+                    <p><img src="resources/2013-page-size-small-vs-big1.png" height=300px></p>
+                    <p><small><a href="http://www.guypo.com/uncategorized/real-world-rwd-performance-take-2/">guypo.com</a></small></p>
+                    <aside class="notes">
+                        <p>Serving the same resources to mobile and desktop hurts performance</p>
+                        <p>On mobile the images are much smaller and some of them are not even displayed</p>
+                    </aside>
+                </section>
+                <section>
+                    <h2>Which resources?</h2>
+                    <p>Images - over 60%</p>
+                    <p><img src="resources/httparchive_images.png"></p>
+                    <p><small><a href="http://httparchive.org">httparchive.org</a></small></p>
+                </section>
+                <section>
+                    <h2>How much can be saved?</h2>
+                    <p>Up to&trade; 72% image data savings</p>
+                    <p><img src="resources/sizerSoze-savings.png"></p>
+                    <small><a href="http://timkadlec.com/2013/06/why-we-need-responsive-images/">tkadlec.com</a></small>
+                    <aside class="notes">
+                        A small utility I cooked up and Tim Kadlec wrote about showed 72% data savings
+                    </aside>
+                </section>
+                <section>
+                    <h2>Retina only increases these gaps</h2>
+                    <p>The difference between low end, small devices and high-end wide devices increases</p>
+                    <p><img src="resources/retina-display-vs-normal-display1.png"></p>
+                    <aside class="notes">
+                        <p>Devs can choose between HQ and LQ for everybody</p>
+                        <p>Usually pick HQ</p>
+                    </aside>
+                </section>
+                <section>
+                    <h2>How can we measure?</h2>
+                    <aside class="notes">
+                        We need to run a perf budget, with no way to measure waste
+                    </aside>
+				</section>
+                <section>
+                    <h2>Sizer Soze</h2>
+                    <img src="resources/keizer.jpg">
+                    <aside class="notes">
+                        Following a post by grigs, hacked together on a saturday morning
+                    </aside>
+				</section>
+                <section>
+                    <h2>What??</h2>
+                    <p>Measures the difference between current images &amp; perfectly sized images</p>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>How does it work?</h2>
+                    <ul>
+                        <li class="fragment">Download a page using phantomJS</li>
+                        <li class="fragment">Look at image dimensions</li>
+                        <li class="fragment">Download the images</li>
+                        <li class="fragment">Resize to displayed dimensions</li>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>SSAAS</h2>
+                    <a href="http://sizersoze.org">sizersoze.org</a>
+                    <aside class="notes">
+                        Built with help of awesome people from the RICG and the Filament Group.
+                        Special thanks to Sven Read for the design and Jeff Lembeck for the frontend work.
+                    </aside>
+				</section>
+                <section>
+                    <h2>Demo time!</h2>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Give it a try!</h2>
+                    <p><a href="http://sizersoze.org">sizersoze.org</a></p>
+                    <p class="fragment">But please be patient!</p>
+                    <aside class="notes">
+                        This is the first time this sees any kind of non-test traffic, so I expect it to choke :)
+                    </aside>
+				</section>
+                <section>
+                    <h2>If you want to help out</h2>
+                    <a href="https://github.com/yoavweiss/Sizer-Soze">github.com/yoavweiss/Sizer-Soze</a>
+                    <a href=https://github.com/ResponsiveImagesCG/Sizer-Soze-frontend/">github.com/ResponsiveImagesCG/Sizer-Soze-frontend</a>
+                    <aside class="notes">
+                        Very much in the "pet project" phase, so bug reports, etc will be appreciated
+                    </aside>
+				</section>
+                <section>
+                    <h2>OK, bandwidth is important</h2>
+                    <p>But It's getting better every year</p>
+                    <p>Soon this whole issue will go away</p>
+                    <p><img src="resources/troll_tiny.png"></p>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Rendering performance</h2>
+                    <aside class="notes">
+                        Bandwidth is not the only factor here
+                    </aside>
+				</section>
+                <section>
+                    <h2>Decoding speed impact</h2>
+                    <ul>
+                        <li class="fragment">x2 images take x? to decode</li>
+                        <li class="fragment">x6 images take x??? to decode</li>
+                    </ul>
+                    <p class="fragment"><small><a href="http://timkadlec.com/2013/11/why_we_need_responsive_images_part_deux">tkadlec.com</a></small></p>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Resize impact</h2>
+                    <ul>
+                        <li class="fragment">An order of magnitude slower</li>
+                        <li class="fragment">x2 images take x? to decode</li>
+                        <li class="fragment">x6 images take x??? to decode</li>
+                        <li class="fragment">Need more data!</li>
+                        <li class="fragment">Very small resizes can be handled differently</li>
+                    </ul>
+                    <p class="fragment"><small><a href="http://timkadlec.com/2013/11/why_we_need_responsive_images_part_deux">tkadlec.com</a></small></p>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>But it's not on the main thread</h2>
+                    <img src="resources/troll_tiny.png">
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>It still takes CPU time</h2>
+                    <ul>
+                        <li class="fragment">Scrolling lag observed</li>
+                        <li class="fragment">Battery life may suffer</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Memory impact</h2>
+                    Browsers store encoded, decoded and resized image in memory
+                    <aside class="notes">
+                        Browsers can be smart about it and evict some of this in memory cache earlier, but currently, it's a cost
+                    </aside>
+				</section>
+                <section>
+                    <h2>Decoded image memory footprint</h2>
+                    4 bytes per pixel - W×H×4
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Larger images cost more</h2>
+                    <table style="width: 100%;">
+                        <thead><td>Dimensions</td><td>Memory footprint</td><td>Diff</td></thead>
+                        <tbody>
+                        <tr><td>800x800<td>2,560,000</td><td></td></tr>
+                        <tr><td>400x400<td>640,000</td><td>1,920,000</td></tr>
+                        <tr><td>200x200<td>160,000</td><td>480,000</td></tr>
+                        </tbody></table>
+                    <aside class="notes">
+                        You can see that the larger the display dimensions of the image, the cost a 2x image incurs is heavier.
+                    </aside>
+				</section>
+                <section>
+                    <h2>Responsive Images Problem</h2>
+                    <h2>2 major use cases</h2>
+                    <aside class="notes">
+                        Let's better define what we're talking about when we're talking about the "responsive images problem"
+                    </aside>
+                </section>
+                <section>
+                    <h2>Resolution switching</h2>
+                    <p>Serving different image dimensions to different devices</p>
+                    <aside class="notes">
+                        <p>Image resources only differ in quality. proportions stay the same</p>
+                    </aside>
+                </section>
+                <section>
+                    <p><img src="resources/fundraise.png"></p>
+                </section>
+                <section>
+                    <h2>DPR switching</h2>
+                    Sending retina images only to retina screens
+                </section>
+                <section>
+                    <h2>viewport switching</h2>
+                    Sending images adapted to their display dimensions
+                    <aside class="notes">
+                        For both res switching, browser should be able to serve lower res resources
+                    </aside>
+                </section>
+                <section>
+                    <h2>Art Direction</h2>
+                    <p>Getting images to match layout</p>
+                    <p><img src="resources/w3c_resp_img_art_direction.jpg"></p>
+                    <aside class="notes">
+                        Fit layout and optimal content without wasting bytes
+                    </aside>
+                </section>
+                <section>
+                    ?????Talk about survey???
+                    <img src="resources/respimg_survey.png">
+                    <aside class="notes">
+                        Survey - 40% of devs hack their images to do art direction
+                    </aside>
+                </section>
+                <section>
+                    <img src="resources/japborst.png">
+                    <p><small><a href="http://japborst.net/blog/the-current-state-of-art-direction.html">japborst.net</a></small></p>
+                    <aside class="notes">
+                        23% of responsive sites have art-directed images
+                    </aside>
+				</section>
+                <section>
+                    <h2>Other use cases</h2>
+                    <ul>
+                        <li class="fragment">Monochrome</li>
+                        <li class="fragment">Print</li>
+                        <li class="fragment">Image format fallback</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Constraints</h2>
+                    Must play well with preloader
+                    <aside class="notes">
+                        Since the goal is performance afterall
+                    </aside>
+				</section>
+                <section>
+                    <h2>Use cases doc</h2>
+                    <a href="http://usecases.responsiveimages.org">usecases.responsiveimages.org</a>
+                    <p>Released as a W3C WG note</p>
+                    <aside class="notes">
+                        Check out the full use cases document if you want to learn more
+                        We got upgraded, since there's no CG note
+                    </aside>
+				</section>
+                <section>
+                    <h2>So let's hack around the problem</h2>
+                    <div class="fragment"><p>AKA:</p><img src="resources/YUNOJS.jpg"></div>
+                    <aside class="notes">
+                        So, when first encountered this issue, Web devs tries to route around it using the regular methods.
+                        But something got in their way
+                    </aside>
+				</section>
+                <section>
+                    <h2>But first...</h2>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Who's afraid of the big, bad preloader</h2>
+                    <aside class="notes">
+                        [Raise your hand if you know what the preloader is]
+                    </aside>
+				</section>
+                <section>
+                    <h2>AKA</h2>
+                    <ul>
+                        <li class="fragment">PreloadScanner</li>
+                        <li class="fragment">Speculative parser</li>
+                        <li class="fragment">Look-ahead scanner</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>"The greatest browser optimization of all times"</h2>
+                    <p style="text-align: right">- Steve Souders</p>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>What does it do?</h2>
+                    <ul>
+                        <li class="fragment">Scans the document when the parser is blocked </li>
+                        <li class="fragment">Figures out resources that need to be downloaded</li>
+                        <li class="fragment">Adds them to the download queue</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>How important is that???</h2>
+                    <img src="resources/troll_tiny.png">
+                    <aside class="notes">
+
+                    </aside>
+				</section>
+                <section>
+                    <h2>SmashingMag - With preloader</h2>
+                    <img src="resources/preloader.png">
+                    DCL - 2390; PLT - 3585
+                    <br><br>
+                    <small>Using <a href="http://ericduran.github.io/chromeHAR/">chromeHAR</a></small>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>SmashingMag - No preloader</h2>
+                    <img src="resources/nopreloader.png">
+                    DCL - 5395; PLT - 7193
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>BBC - With preloader</h2>
+                    <img src="resources/bbc_preloader.png">
+                    DCL - 5022; PLT - 5980
+                    <br><br>
+                    <small>Using <a href="http://ericduran.github.io/chromeHAR/">chromeHAR</a></small>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>BBC - Without preloader</h2>
+                    <img src="resources/bbc_nopreloader.png">
+                    DCL - 7660; PLT - 7957
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Going back to images</h2>
+                    <p>People came up with some JS based ideas</p>
+                    <div class="fragment"><p>None of them really worked</p>
+                        <img src="resources/problem-solving.gif"></div>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Turns out</h2>
+                    <p>You can't modify resources with JS before the preloader</p>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Early days techniques</h2>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Cookie based</h2>
+                    Doesn't work on first load
+                    <aside class="notes">
+                        The cookie is not guarantied to be set on the page's images, since they go into the download queue before it is set
+                    </aside>
+				</section>
+                <section>
+                    <h2>Base href modification</h2>
+                    Terminates in-flight preloaded requests
+                    <aside class="notes">
+                        If the base is modified, all realtive URLs the preloader kicked off must be terminated. That's a perf disaster.
+                    </aside>
+				</section>
+                <section>
+                    <h2>Switching src value</h2>
+                    Double download regardless of preloader...
+                    <aside class="notes">
+                        Even without the proloader, the parser triggers an img request as soon as the attribute is parsed.
+                    </aside>
+				</section>
+                <section>
+                    <h2>This led to FRUSTRATION</h2>
+                    <img src="resources/so-mad-i-could.gif">
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Working techniques</h2>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Cookie based</h2>
+                    e.g. adaptive-images.com
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Example</h2>
+                    <pre><code class="javascript">&lt;script&gt;
+document.cookie = 'width=' + screen.width + 
+                  ';height='screen.height + 
+                  ';dpr=' + devicePixelRatio;&lt;/script&gt;
+&lt;img src="cat.jpg"&gt; </code></pre>
+                </section>
+                <section>
+                    <h2>Advantages</h2>
+                    <ul>
+                        <li class="fragment">No need for markup change</li>
+                        <li class="fragment">Images download fast</li>
+                        <li class="fragment">No double download</li>
+                        <li class="fragment">Image displayed when JS fails</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Disadvantages</h2>
+                    <ul>
+                        <li class="fragment">On first page load, user will get wrong image</li>
+                        <li class="fragment">Cachebility issues</li>
+                        <li class="fragment">Same domain restriction</li>
+                        <li class="fragment">Server side solution which may or may not fit your stack</li>
+                        <li class="fragment">Server-side logic/directory structure to map viewport dimensions to image dimensions</li>
+                        <li class="fragment">Resizes are not taken into account</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>LQIP</h2>
+                    Low Quality Image Placeholder
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Example</h2>
+                    <pre><code>&lt;img src="cat_lq.jpg" data-normal-src="cat.jpg" data-hq-src="cat_hq.jpg"&gt;
+...
+&lt;script&gt;
+    var images = document.getElementsByTagName("img");
+    var imagesLen = images.length;
+    var hd = screen.width > 800 || devicePixelRatio > 1;
+    for(var i = 0; i < images.length; i++)
+        images[i].src = hd?
+                        images[i].dataset.hqSrc:
+                        images[i].dataset.normalSrc;
+&lt;/script&gt; </code></pre>
+                </section>
+                <section>
+                    <h2>Advantages</h2>
+                    <ul>
+                        <li class="fragment">LQ images download fast. Prog JPEG-like</li>
+                        <li class="fragment">Can work with no server side logic</li>
+                        <li class="fragment">LQ image displayed when JS fails</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Disadvantages</h2>
+                    <ul>
+                        <li class="fragment">Double download, so some BW waste</li>
+                        <li class="fragment">Markup contains multiple resources</li>
+                        <li class="fragment">Final quality image download starts late (near DCL)</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Picturefill</h2>
+                    Based of the <code>&lt;picture&gt;</code> markup pattern
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Example</h2>
+                    <pre><code>&lt;span data-picture&gt;
+    &lt;span data-media="screen and (min-width:1600px)"
+          data-src="wide.jpg"&gt;&lt;/span&gt; 
+    &lt;span data-media="screen and (min-width:800px)"
+          data-src="middle.jpg"&gt;&lt;/span&gt;
+    &lt;span data-media="screen and (min-width:400px)"
+          data-src="narrow.jpg"&gt;&lt;/span&gt;
+    &lt;span data-src="tiny.jpg"&gt;&lt;/span&gt;
+    &lt;noscript&gt; &lt;img src="fallback.jpg"&gt;&lt;/noscript&gt;
+&lt;/span&gt;
+...
+&lt;script src="picturefill.js"&gt;&lt;/script&gt;</code></pre>
+                </section>
+                <section>
+                    <h2>Example #2</h2>
+                    <pre><code>&lt;span data-picture&gt;
+    &lt;span data-media="screen and (min-width:1600px)"
+          data-srcset="wide1x.jpg 1x,
+                       wide2x.jpg 2x"&gt; &lt;/span&gt;
+    &lt;span data-media="screen and (min-width:800px)"
+          data-srcset="middle1x.jpg 1x,
+                       middle2x.jpg 2x"&gt; &lt;/span&gt;
+    &lt;span data-media="screen and (min-width:400px)"
+          data-srcset="narrow1x.jpg 1x, 
+                       narrow2x.jpg 2x"&gt; &lt;/span&gt;
+    &lt;span data-srcset="tiny1x.jpg 1x, 
+                       tiny2x.jpg 2x"&gt;&lt;/span&gt;
+    &lt;noscript&gt; &lt;img src="fallback.jpg"&gt;&lt;/noscript&gt;
+&lt;/span&gt;
+...
+&lt;script src="picturefill.js"&gt;&lt;/script&gt; </code></pre>
+                </section>
+                <section>
+                    <h2>What does it do?</h2>
+                    <ul>
+                        <li class="fragment">Meant for art-direction</li>
+                        <li class="fragment">Can do viewport switching when abused</li>
+                        <li class="fragment">DPR switching using data-srcset in an experimental branch</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Advantages</h2>
+                    <ul>
+                        <li class="fragment">No double download</li>
+                        <li class="fragment">With scripts disabled, there's a fallback</li>
+                        <li class="fragment">Using MQs which is a familiar pattern to authors</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Disadvantages</h2>
+                    <ul>
+                        <li class="fragment">Markup contains multiple resources</li>
+                        <li class="fragment">MQs in the markup can get verbose</li>
+                        <li class="fragment">Image download starts only after DCL</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>x-picture</h2>
+                    Web components based solution
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Example</h2>
+                    <pre><code>&lt;html&gt;
+    &lt;head&gt;
+        &lt;script src="x-picture.js"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;x-picture&gt;
+            &lt;source media="screen and (min-width:1600px)"
+                    srcset="wide1x.jpg 1x, wide2x.jpg 2x"&gt; 
+            &lt;source media="screen and (min-width:800px)"
+                    srcset="middle1x.jpg 1x, middle2x.jpg 2x"&gt; 
+            &lt;source media="screen and (min-width:400px)"
+                    srcset="narrow1x.jpg 1x, narrow2x.jpg 2x"&gt; 
+            &lt;source srcset="tiny1x.jpg 1x, tiny2x.jpg 2x"&gt; 
+            &lt;noscript&gt; &lt;img src="fallback.jpg"&gt;&lt;/noscript&gt;
+        &lt;/x-picture&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </section>
+                <section>
+                    <h2>Advantages vs. Picturefill</h2>
+                    <ul>
+                        <li class="fragment">Slightly less verbose</li>
+                        <li class="fragment">Image download can start as soon the the image is parsed (in supporting browsers)</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Disadvantages vs. Picturefill</h2>
+                    <ul>
+                        <li class="fragment">Depends on Polymer</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Mobify.js</h2>
+                    A whole new level of Bat-sh*t-loco-insane™ hack
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>What?</h2>
+                    Enables script access to HTML document <strong>before</strong> preloder or parser see it
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>How?????</h2>
+                    <ul>
+                        <li class="fragment">Inline script at the doc head injects a &lt;plaintext&gt; tag and downloads mobify.js</li>
+                        <li class="fragment">Browser treats the rest of the document as text</li>
+                        <li class="fragment">HTML chunks are read &amp; processed as they're downloaded</li>
+                        <li class="fragment">Once HTML is done, document.open() and document.write() the new HTML</li>
+                        <li class="fragment">Page load starts over, preloader and all</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Advantages</h2>
+                    <ul>
+                        <li class="fragment">No markup changes needed</li>
+                        <li class="fragment">No double download</li>
+                        <li class="fragment">Preloader works (after a delay)</li>
+                        <li class="fragment">No JS means no optimization, but everything works</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Disadvantages</h2>
+                    <ul>
+                        <li class="fragment">Blocking JS at the page's start</li>
+                        <li class="fragment">Entire HTML is downloaded before parsing start</li>
+                        <li class="fragment">Compatibility issues</li>
+                        <li class="fragment">Lots of invasive JS may be hard on legacy devices</li>
+                        <li class="fragment">JS failure after plaintext injection can result in a blank page</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>BBC - imager.js</h2>
+                    A mix-and-match of previous techniques
+                    <ul>
+                        <li class="fragment">A fallback low-quality image</li>
+                        <li class="fragment">Uses RAF to poll for DOM changes</li>
+                        <li class="fragment">Waits until layout to download</li>
+                        <li class="fragment">Page resize may trigger resource change</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Service Worker</h2>
+                    <img src="resources/service_worker.jpg">
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>What?</h2>
+                    <ul>
+                        <li class="fragment">Originally, an offline API</li>
+                        <li class="fragment">Enables URL rewriting in the browser</li>
+                        <li class="fragment">Implementation underway in FF &amp; Chrome</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Let's use that to hack responsive images!!!</h2>
+                    <img src="resources/yay.gif">
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Unfortunately</h2>
+                    <ul>
+                        <li class="fragment">Doesn't (yet?) support first load</li>
+                        <li class="fragment">Can't access <code>window</code></li>
+                        <li class="fragment">Browser support will take time</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Compressive images</h2>
+                    <ul>
+                        <li class="fragment">No markup, no JS</li>
+                        <li class="fragment">Take 2x images</li>
+                        <li class="fragment">Compress them to LQ</li>
+                        <li class="fragment">Let browser handle resize</li>
+                        <li class="fragment">Looks good on retina</li>
+                        <li class="fragment">Not bigger than 1x image</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Downsides</h2>
+                    <ul>
+                        <li class="fragment">Memory footprint</li>
+                        <li class="fragment">Decoding and resizing speed</li>
+                        <li class="fragment">"Looks good" is subjective</li>
+                        <li class="fragment">Only DPR switching, up to 2x</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Bandwidth testing</h2>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Active bandwidth testing </h2>
+                    e.g. foresight.js
+                    <ul>
+                        <li class="fragment">Download an object and measure</li>
+                        <li class="fragment">Download images according to measured BW</li>
+                        <li class="fragment">Adds a blocking, useless resource</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Should I do that???</h2>
+                    <p class="fragment"><img src="resources/snoop-no.gif"></p>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Passive bandwidth testing</h2>
+                    <ul>
+                        <li class="fragment">Measure HTML download time - NavTiming</li>
+                        <li class="fragment">Download images according to measured BW</li>
+                        <li class="fragment">Less bad, but still not a good idea</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Related stuff</h2>
+                    <ul>
+                        <li class="fragment">Image resizing services</li>
+                        <li class="fragment">CMS plugins</li>
+                        <li class="fragment">Grunt plugins</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>How to decide?</h2>
+                    <ul>
+                        <li class="fragment">Can I modify the page at all?</li>
+                        <li class="fragment">Can I modify the markup to contain the image data?</li>
+                        <li class="fragment">Can I control the server-side serving the images?</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Performance take-aways</h2>
+                    <ul>
+                        <li class="fragment">Using <code>src</code> results in a download</li>
+                        <li class="fragment">Start downloading images ASAP</li>
+                        <li class="fragment">Measure perf impact: network, memory and decoding</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Proposed standard Solutions</h2>
+                    <ul>
+                        <li class="fragment"><code>srcset</code> attribute</li>
+                        <li class="fragment"><code>&lt;picture&gt;</code> element</li>
+                        <li class="fragment">Client-Hints headers</li>
+                        <li class="fragment">Src-N</li>
+                        <li class="fragment">Response Image Container</li>
+                    </ul>
+                    <aside class="notes">
+                        We've covered the problem and the hacks. Now let's move to the standard solutions.
+                    </aside>
+                </section>
+                <section>
+                    <h2>srcset</h2>
+                    <ul>
+                        <li class="fragment">Proposed by Apple, adopted by the WHATWG</li>
+                        <li class="fragment">Extends <code>&lt;img&gt;</code> to include multiple resources</li>
+                        <li class="fragment">Addresses mainly resolution switching</li>
+                    </ul>
+                    <aside class="notes">
+                        <p>The good old img tag, now with extra attributes!!!</p>
+                        <p>Mainly res-switch, because browser can override</p>
+                        <p>Browser can override means "browser can optimize"</p>
+                    </aside>
+                </section>
+                <section>
+                    <h2>Current implementation</h2>
+                    <h3>DPR switching only</h3>
+                    <pre><code>&lt;img src="cat.1X.jpg"
+     srcset="cat.1x.jpg 1x,
+             cat.2x.jpg 2x"&gt;</code></pre>
+                        <p>Implemented (not yet shipped) in WebKit and Blink</p>
+                        <p>Rough consensus around the syntax</p>
+                    </script>
+                </section>
+                <section>
+                    <h2>srcset's viewport switching syntax</h2>
+                    <pre><code>&lt;img src="cat.1X.jpg"
+     srcset="cat.1x.jpg 1x 320w,
+             cat.2x.jpg 2x 320w,
+             cat.2x.jpg 1x 640w,
+             cat.4x.jpg 2x 640w,
+             cat 4x.jpg 1x 1280w"&gt;</code></pre>
+                    <p>Not many fans for this part of the syntax</p>
+                    <aside class="notes">
+                    </aside>
+                </section>
+                <section>
+                    <h2><code>&lt;picture&gt;</code></h2>
+                    <ul>
+                        <li class="fragment">Proposed by Bruce Lawson, adopted by RICG</li>
+                        <li class="fragment">Adopts <code>&lt;video&gt;</code> and <code>&lt;audio&gt;</code> markup patterns</li>
+                        <li class="fragment">Targeted at art-direction</li>
+                        <li class="fragment">Specifies resources using <code>&lt;source&gt;</code> and MQs</li>
+                        <li class="fragment">First matching resource downloaded and displayed</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Art direction using picture</h2>
+                    <pre><code>&lt;picture&gt;
+    &lt;source media="screen and (min-width:1600px)"
+            srcset="wide1x.jpg 1x, 
+                    wide2x.jpg 2x"&gt; 
+    &lt;source media="screen and (min-width:800px)"
+            srcset="middle1x.jpg 1x, 
+                    middle2x.jpg 2x"&gt; 
+    &lt;source media="screen and (min-width:400px)"
+            srcset="narrow1x.jpg 1x, 
+                    narrow2x.jpg 2x"&gt; 
+    &lt;source srcset="tiny1x.jpg 1x, 
+                    tiny2x.jpg 2x"&gt; 
+    &lt;img src="fallback.jpg"&gt;
+&lt;/picture&gt;</code></pre>
+                </section>
+                <section>
+                    <h2>src-N</h2>
+                    <ul>
+                        <li class="fragment">Proposed by Tab Atkins and John Mellor</li>
+                        <li class="fragment">Got the RICG's support</li>
+                    </ul>
+                    <aside class="notes">
+                    Tab Atkins' and John Mellor's proposal
+                    Pretty soon got the RICG's support behind it
+                    Fuses in picture, srcset and viewport-switching done right
+                    </aside>
+				</section>
+                <section>
+                    <h2>src-N's DPR switching</h2>
+                    <p>x-urls - Basically srcset's DPR syntax</p>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Example</h2>
+                    <pre><code>&lt;img src-1="pic.png, picHigh.png 2x, picLow.png .5x"&gt;</code></pre>
+                    <aside class="notes">
+                    Same as srcset!!!!
+                    </aside>
+				</section>
+                <section>
+                    <h2>src-N's art direction</h2>
+                    Multiple attributes, each can start with an MQ
+                    <aside class="notes">
+                        Picture's source elements squeezed into attributes
+                    </aside>
+				</section>
+                <section>
+                    <h2>Example</h2>
+                    <pre><code>&lt;img src-1="(max-width: 400px) pic-small.jpg"
+     src-2="(max-width: 1000px) pic-medium.jpg"
+     src="pic-large.jpg"
+     alt="Obama talking to a soldier in hospital scrubs."&gt; </code></pre>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>viewport-urls</h2>
+                    Variable sized images
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Composed of</h2>
+                    <ul>
+                        <li class="fragment">Breakpoint definition</li>
+                        <li class="fragment">Resource &amp; dimension list</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Linearly variable image</h2>
+                    <br>
+                    <pre><code>&lt;img src-1="100%; pic1.png 160, pic2.png 320, pic3.png 640,
+                  pic4.png 1280, pic5.png 2560"&gt;</code></pre>
+                    <aside class="notes">
+                    A simple "image takes whole width" example
+                    </aside>
+				</section>
+                <section>
+                    <h2>Multiple breakpoint variable image</h2>
+                    <br>
+                    <pre><code>&lt;img src-1="100% (640px) 50% (960px) 33%; 
+            160.jpg 160, 320.jpg 320, 480.jpg 480, 640.jpg 640, 
+            960.jpg 960, 1280.jpg 1280, 1920.jpg 1920"&gt; </code></pre>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Breakpoint definition</h2>
+                    <p>Officially: size-viewport-list</p>
+                    <pre><code>100% (640px) 50% (960px) 33%;</code></pre>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Resource &amp; dimension list</h2>
+                    <p>Officially: size-based-urls</p>
+                    <pre><code> 160.jpg 160, 320.jpg 320, 480.jpg 480, 640.jpg 640, 
+            960.jpg 960, 1280.jpg 1280, 1920.jpg 1920</code></pre>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Multiple breakpoints with srcset</h2>
+                    <br>
+                    <pre><code>&lt;img srcset="
+  320.jpg .89x 400w, 480.jpg 1.33x 400w, 640.jpg 1.78x 400w,
+  480.jpg 1.04x 520w, 640.jpg 1.39x 520w, 960.jpg 2.09x 520w,
+  640.jpg 1.1x 639w, 960.jpg 1.66x 639w, 1280.jpg 2.2x 639w,
+  320.jpg 0.89x 800w, 480.jpg 1.33x 800w, 640.jpg 1.78x 800w,
+  480.jpg 1.09x 959w, 640.jpg 1.45x 959w, 960.jpg 2.18x 959w,
+  320.jpg 0.89x 1200w, 480.jpg 1.33x 1200w, 640.jpg 1.78x 1200w,
+  480.jpg 1.09x 1440w, 640.jpg 1.45x 1440w, 960.jpg 2.18x 1440w,
+  480.jpg 0.86x 1920w, 640.jpg 1.14x 1920w, 960.jpg 1.71x 1920w, 
+  1280.jpg 2.29x 1920w, 640.jpg 0.86x, 960.jpg 1.29x, 1280 1.71x, 
+  1920 2.57x "&gt;</code></pre>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Client Hints</h2>
+                    <ul>
+                        <li class="fragment">Proposed by Ilya Grigorik</li>
+                        <li class="fragment">HTTP based content-negotiation solution</li>
+                        <li class="fragment">Client sends hints/capabilities</li>
+                        <li class="fragment">Server side logic decides on resource</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Request headers</h2>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>CH-DPR</h2>
+                </section>
+                <section>
+                    <h2>CH-RW</h2>
+                    Resource Width
+                    <p>Implicitly relies on src-N's viewport-url </p>
+                </section>
+                <section>
+                    <h2>Response headers</h2>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>DPR</h2>
+                    Server confirmation header
+                    Used for intrinsic image sizing
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h3>Opt-in only</h3>
+                    <p>Not sent on initial HTML request</p>
+                </section>
+                <section>
+                    <h2>Responsive Image Container</h2>
+                    <ul>
+                        <li class="fragment">File format approach</li>
+                        <li class="fragment">A "layer" per resolution</li>
+                        <li class="fragment">Both resolution switching and art-direction</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Resolution switching</h3>
+                    <img src="resources/res_switch_shrink.png">
+                    <p>336x635</p>
+                </section>
+                <section>
+                    Is split into
+                </section>
+                <section>
+                    <img src="resources/res_switch.png_layer1.webp.png">
+                    <p>106x200</p>
+                </section>
+                <section>
+                    <img src="resources/res_switch.png_layer2.webp.png">
+                    <img src="resources/res_switch.png_layer2-bw.png">
+                    <p>211x400</p>
+                </section>
+                <section>
+                    <img src="resources/res_switch.png_layer3.webp.png">
+                    <img src="resources/res_switch.png_layer3-bw.png">
+                    <p>336x635</p>
+                </section>
+                <section>
+                    <h3>Art-direction</h3>
+                    <img src="resources/crop.jpg">
+                    <p>770x512</p>
+                </section>
+                <section>
+                    Is split into
+                </section>
+                <section>
+                    <img src="resources/crop.jpg_layer1.webp.png">
+                    <p>200x200</p>
+                </section>
+                <section>
+                    <img src="resources/crop.jpg_layer2.webp.png">
+                    <p>400x288</p>
+                </section>
+                <section>
+                    <img src="resources/crop.jpg_layer3.webp.png">
+                    <p>770x512</p>
+                </section>
+                <section>
+                    <h3>Advantages</h3>
+                    <ul>
+                        <li class="fragment">Markup left untouched</li>
+                        <li class="fragment">A single file per image</li>
+                        <li class="fragment">Better for post-download dimensions changes</li>
+                    </ul>
+                    <aside class="notes">
+                        <p>No markup</p>
+                        <p>single file</p>
+                        <p>can download diff</p>
+                    </aside>
+                </section>
+                <section>
+                    <h3>disadvantages</h3>
+                    <ul>
+                        <li class="fragment">Touches many layers. Will take time</li>
+                        <li class="fragment">Decoding performance???</li>
+                        <li class="fragment">Fetching mechanism network performance???</li>
+                    </ul>
+                    <aside class="notes">
+                        <p>complicated</p>
+                        <p>decoding perf?</p>
+                        <p>Fetching mechanism</p>
+                    </aside>
+                </section>
+                <section>
+                    <section>
+                    <h2>Questions?</h2>
+                    </section>
+                    <section>
+                        <h2>Oh... One more thing</h2>
+                    </section>
+                    <section>
+                        <h2>Progressive image download</h2>
+                    </section>
+                    <section>
+                        <img src="resources/005.png">
+                    </section>
+                    <section>
+                        <img src="resources/015.png">
+                    </section>
+                    <section>
+                        <img src="resources/025.png">
+                    </section>
+                    <section>
+                        <img src="resources/035.png">
+                    </section>
+                    <section>
+                        <img src="resources/045.png">
+                    </section>
+                    <section>
+                        <img src="resources/055.png">
+                    </section>
+                    <section>
+                        <img src="resources/065.png">
+                    </section>
+                    <section>
+                        <img src="resources/080.png">
+                    </section>
+                    <section>
+                        <img src="resources/100.png">
+                    </section>
+                </section>
+                <section>
+                    <h1>Thanks!</h1>
+                    <div style="text-decoration: underline; margin-top: 100px;">Attribution</div>
+                    <p><small>RWD - http://www.flickr.com/photos/axbom/6263640150/sizes/o/in/photostream/</small></p>
+                    <p><small>Bloat - http://www.flickr.com/photos/lorenjavier/5013332959/sizes/l/in/photostream/</small></p>
+                    <p><small>CNN - http://mobile.smashingmagazine.com/2010/11/03/how-to-build-a-mobile-website/</small></p>
+                    <p><small>Wap 2 site - http://www.coffeeshopdave.com/Helio_WAPv2.html</small></p>
+                    http://lego.wikia.com/wiki/Service_Crew_Member
+                </section>
+                <!--
+				<section>
+					<h2>Heads Up</h2>
+					<p>
+						reveal.js is a framework for easily creating beautiful presentations using HTML. You'll need a browser with
+						support for CSS 3D transforms to see it in its full glory.
+					</p>
+
+					<aside class="notes">
+						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
+					</aside>
+				</section>
+
+				<section>
+						<h2>Vertical Slides</h2>
+						<p>
+							Slides can be nested inside of other slides,
+							try pressing <a href="#" class="navigate-down">down</a>.
+						</p>
+						<a href="#" class="image navigate-down">
+							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
+						</a>
+					</section>
+					<section>
+						<h2>Basement Level 1</h2>
+						<p>Press down or up to navigate.</p>
+					</section>
+					<section>
+						<h2>Basement Level 2</h2>
+						<p>Cornify</p>
+						<a class="test" href="http://cornify.com">
+							<img width="280" height="326" src="https://s3.amazonaws.com/hakim-static/reveal-js/cornify.gif" alt="Unicorn">
+						</a>
+					</section>
+					<section>
+						<h2>Basement Level 3</h2>
+						<p>That's it, time to go back up.</p>
+						<a href="#/2" class="image">
+							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Up arrow" style="-webkit-transform: rotate(180deg);">
+						</a>
+					</section>
+				</section>
+
+				<section>
+					<h2>Slides</h2>
+					<p>
+						Not a coder? No problem. There's a fully-featured visual editor for authoring these, try it out at <a href="http://slid.es" target="_blank">http://slid.es</a>.
+					</p>
+				</section>
+
+				<section>
+					<h2>Point of View</h2>
+					<p>
+						Press <strong>ESC</strong> to enter the slide overview.
+					</p>
+					<p>
+						Hold down alt and click on any element to zoom in on it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Alt + click anywhere to zoom back out.
+					</p>
+				</section>
+
+				<section>
+					<h2>Works in Mobile Safari</h2>
+					<p>
+						Try it out! You can swipe through the slides and pinch your way to the overview.
+					</p>
+				</section>
+
+				<section>
+					<h2>Marvelous Unordered List</h2>
+					<ul>
+						<li>No order here</li>
+						<li>Or here</li>
+						<li>Or here</li>
+						<li>Or here</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Fantastic Ordered List</h2>
+					<ol>
+						<li>One is smaller than...</li>
+						<li>Two is smaller than...</li>
+						<li>Three!</li>
+					</ol>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						## Markdown support
+
+						For those of you who like that sort of thing. Instructions and a bit more info available [here](https://github.com/hakimel/reveal.js#markdown).
+
+						```
+						<section data-markdown>
+						  ## Markdown support
+
+						  For those of you who like that sort of thing.
+						  Instructions and a bit more info available [here](https://github.com/hakimel/reveal.js#markdown).
+						</section>
+						```
+					</script>
+				</section>
+
+				<section id="transitions">
+					<h2>Transition Styles</h2>
+					<p>
+						You can select from different transitions, like: <br>
+						<a href="?transition=cube#/transitions">Cube</a> -
+						<a href="?transition=page#/transitions">Page</a> -
+						<a href="?transition=concave#/transitions">Concave</a> -
+						<a href="?transition=zoom#/transitions">Zoom</a> -
+						<a href="?transition=linear#/transitions">Linear</a> -
+						<a href="?transition=fade#/transitions">Fade</a> -
+						<a href="?transition=none#/transitions">None</a> -
+						<a href="?#/transitions">Default</a>
+					</p>
+				</section>
+
+				<section id="themes">
+					<h2>Themes</h2>
+					<p>
+						Reveal.js comes with a few themes built in: <br>
+						<a href="?theme=sky#/themes">Sky</a> -
+						<a href="?theme=beige#/themes">Beige</a> -
+						<a href="?theme=simple#/themes">Simple</a> -
+						<a href="?theme=serif#/themes">Serif</a> -
+						<a href="?theme=night#/themes">Night</a> -
+						<a href="?#/themes">Default</a>
+					</p>
+					<p>
+						<small>
+							* Theme demos are loaded after the presentation which leads to flicker. In production you should load your theme in the <code>&lt;head&gt;</code> using a <code>&lt;link&gt;</code>.
+						</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Global State</h2>
+					<p>
+						Set <code>data-state="something"</code> on a slide and <code>"something"</code>
+						will be added as a class to the document element when the slide is open. This lets you
+						apply broader style changes, like switching the background.
+					</p>
+				</section>
+
+				<section data-state="customevent">
+					<h2>Custom Events</h2>
+					<p>
+						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
+					</p>
+					<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+Reveal.addEventListener( 'customevent', function() {
+	console.log( '"customevent" has fired' );
+} );
+					</code></pre>
+				</section>
+
+				<section>
+					<section data-background="#007777">
+						<h2>Slide Backgrounds</h2>
+						<p>
+							Set <code>data-background="#007777"</code> on a slide to change the full page background to the given color. All CSS color formats are supported.
+						</p>
+						<a href="#" class="image navigate-down">
+							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
+						</a>
+					</section>
+					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png">
+						<h2>Image Backgrounds</h2>
+						<pre><code>&lt;section data-background="image.png"&gt;</code></pre>
+					</section>
+					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" data-background-repeat="repeat" data-background-size="100px">
+						<h2>Repeated Image Backgrounds</h2>
+						<pre><code style="word-wrap: break-word;">&lt;section data-background="image.png" data-background-repeat="repeat" data-background-size="100px"&gt;</code></pre>
+					</section>
+				</section>
+
+				<section data-transition="linear" data-background="#4d7e65" data-background-transition="slide">
+					<h2>Background Transitions</h2>
+					<p>
+						Pass reveal.js the <code>backgroundTransition: 'slide'</code> config argument to make backgrounds slide rather than fade.
+					</p>
+				</section>
+
+				<section data-transition="linear" data-background="#8c4738" data-background-transition="slide">
+					<h2>Background Transition Override</h2>
+					<p>
+						You can override background transitions per slide by using <code>data-background-transition="slide"</code>.
+					</p>
+				</section>
+
+				<section>
+					<h2>Clever Quotes</h2>
+					<p>
+						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+						&ldquo;The nice thing about standards is that there are so many to choose from&rdquo;</q> and block:
+					</p>
+					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+						&ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
+						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
+					</blockquote>
+				</section>
+
+				<section>
+					<h2>Pretty Code</h2>
+					<pre><code data-trim contenteditable>
+function linkify( selector ) {
+  if( supports3DTransforms ) {
+
+    var nodes = document.querySelectorAll( selector );
+
+    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
+      var node = nodes[i];
+
+      if( !node.className ) ) {
+        node.className += ' roll';
+      }
+    };
+  }
+}
+					</code></pre>
+					<p>Courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
+				</section>
+
+				<section>
+					<h2>Intergalactic Interconnections</h2>
+					<p>
+						You can link between slides internally,
+						<a href="#/2/3">like this</a>.
+					</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Fragmented Views</h2>
+						<p>Hit the next arrow...</p>
+						<p class="fragment">... to step through ...</p>
+						<ol>
+							<li class="fragment"><code>any type</code></li>
+							<li class="fragment"><em>of view</em></li>
+							<li class="fragment"><strong>fragments</strong></li>
+						</ol>
+
+						<aside class="notes">
+							This slide has fragments which are also stepped through in the notes window.
+						</aside>
+					</section>
+					<section>
+						<h2>Fragment Styles</h2>
+						<p>There's a few styles of fragments, like:</p>
+						<p class="fragment grow">grow</p>
+						<p class="fragment shrink">shrink</p>
+						<p class="fragment roll-in">roll-in</p>
+						<p class="fragment fade-out">fade-out</p>
+						<p class="fragment highlight-red">highlight-red</p>
+						<p class="fragment highlight-green">highlight-green</p>
+						<p class="fragment highlight-blue">highlight-blue</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Spectacular image!</h2>
+					<a class="image" href="http://lab.hakim.se/meny/" target="_blank">
+						<img width="320" height="299" src="http://s3.amazonaws.com/hakim-static/portfolio/images/meny.png" alt="Meny">
+					</a>
+				</section>
+
+				<section>
+					<h2>Export to PDF</h2>
+					<p>Presentations can be <a href="https://github.com/hakimel/reveal.js#pdf-export">exported to PDF</a>, below is an example that's been uploaded to SlideShare.</p>
+					<iframe id="slideshare" src="http://www.slideshare.net/slideshow/embed_code/13872948" width="455" height="356" style="margin:0;overflow:hidden;border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen> </iframe>
+					<script>
+						document.getElementById('slideshare').attributeName = 'allowfullscreen';
+					</script>
+				</section>
+
+				<section>
+					<h2>Take a Moment</h2>
+					<p>
+						Press b or period on your keyboard to enter the 'paused' mode. This mode is helpful when you want to take distracting slides off the screen
+						during a presentation.
+					</p>
+				</section>
+
+				<section>
+					<h2>Stellar Links</h2>
+					<ul>
+						<li><a href="http://slid.es">Try the online editor</a></li>
+						<li><a href="https://github.com/hakimel/reveal.js">Source code on GitHub</a></li>
+						<li><a href="http://twitter.com/hakimel">Follow me on Twitter</a></li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>THE END</h1>
+					<h3>BY Hakim El Hattab / hakim.se</h3>
+				</section>
+                -->
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+	</body>
+</html>
