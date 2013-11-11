@@ -79,15 +79,8 @@
                     </aside>
 				</section>
                 <section>
-                    <h2>A trip down memory lane</h2>
-                    <aside class="notes">
-                    </aside>
-                </section>
-                <section>
                     <h2>In the begining - mobile only sites</h2>
-                    <div style="width: 1200px; margin-left: -120px"><img src="resources/wap-2-0-logo-primary.jpg">
                     <img src="resources/Helio_wap2.jpg" width="500px">
-                    <img src="resources/xhtml_mobil.jpg" style=""></div>
                     <aside class="notes">
                         <p>Mid 2000s, mobile only sites. Very light weight.</p>
                         <p>iPhone, slightly more content, but still mobile-only</p>
@@ -164,15 +157,6 @@
                     </aside>
                 </section>
                 <section>
-                    <h2>Retina only increases these gaps</h2>
-                    <p>The difference between low end, small devices and high-end wide devices increases</p>
-                    <p><img src="resources/retina-display-vs-normal-display1.png"></p>
-                    <aside class="notes">
-                        <p>Devs can choose between HQ and LQ for everybody</p>
-                        <p>Usually pick HQ</p>
-                    </aside>
-                </section>
-                <section>
                     <h2>Sizer Soze</h2>
                     <p>Measures the difference between current images &amp; perfectly sized images</p>
                     <ul>
@@ -183,6 +167,15 @@
                     <aside class="notes">
                     </aside>
 				</section>
+                <section>
+                    <h2>Retina only increases these gaps</h2>
+                    <p>The difference between low end, small devices and high-end wide devices increases</p>
+                    <p><img src="resources/retina-display-vs-normal-display1.png"></p>
+                    <aside class="notes">
+                        <p>Devs can choose between HQ and LQ for everybody</p>
+                        <p>Usually pick HQ</p>
+                    </aside>
+                </section>
                 <section>
                     <h2>OK, bandwidth is important</h2>
                     <p>But It's getting better every year</p>
@@ -200,23 +193,19 @@
                 <section>
                     <h2>Decoding speed impact</h2>
                     <ul>
-                        <li class="fragment">x2 images take x? to decode</li>
-                        <li class="fragment">x6 images take x??? to decode</li>
+                        <li class="fragment">x2 images take x2 to decode</li>
+                        <li class="fragment">x6 images take x15-x23 (!!!) to decode</li>
                     </ul>
-                    <p class="fragment"><small><a href="http://timkadlec.com/2013/11/why_we_need_responsive_images_part_deux">tkadlec.com</a></small></p>
+                    <p class="fragment"><small><a href="http://timkadlec.com/2013/11/why-we-need-responsive-images-part-deux">tkadlec.com</a></small></p>
                     <aside class="notes">
                     </aside>
 				</section>
                 <section>
                     <h2>Resize impact</h2>
                     <ul>
-                        <li class="fragment">An order of magnitude slower</li>
-                        <li class="fragment">x2 images take x? to decode</li>
-                        <li class="fragment">x6 images take x??? to decode</li>
-                        <li class="fragment">Need more data!</li>
-                        <li class="fragment">Very small resizes can be handled differently</li>
+                        <li class="fragment">More or less same time as decode</li>
                     </ul>
-                    <p class="fragment"><small><a href="http://timkadlec.com/2013/11/why_we_need_responsive_images_part_deux">tkadlec.com</a></small></p>
+                    <p class="fragment"><small><a href="http://timkadlec.com/2013/11/why-we-need-responsive-images-part-deux">tkadlec.com</a></small></p>
                     <aside class="notes">
                     </aside>
 				</section>
@@ -248,7 +237,7 @@
 				</section>
                 <section>
                     <h2>Responsive Images Problem</h2>
-                    <h2>2 major use cases</h2>
+                    <h3>2 major use cases</h3>
                     <aside class="notes">
                         Let's better define what we're talking about when we're talking about the "responsive images problem"
                     </aside>
@@ -283,12 +272,6 @@
                     </aside>
                 </section>
                 <section>
-                    <img src="resources/respimg_survey.png">
-                    <aside class="notes">
-                        Survey - 40% of devs hack their images to do art direction
-                    </aside>
-                </section>
-                <section>
                     <img src="resources/japborst.png">
                     <p><small><a href="http://japborst.net/blog/the-current-state-of-art-direction.html">japborst.net</a></small></p>
                     <aside class="notes">
@@ -296,7 +279,7 @@
                     </aside>
 				</section>
                 <section>
-                    <h2>Constraints</h2>
+                    <h2>Solution constraints</h2>
                     Must play well with preloader
                     <aside class="notes">
                         Since the goal is performance afterall
@@ -363,64 +346,6 @@
                     </aside>
 				</section>
                 <section>
-                    <h2>Cookie based</h2>
-                    <ul>
-                        <li class="fragment">e.g. Adaptive Images</li>
-                        <li class="fragment">Set a cookie at the header</li>
-                        <li class="fragment">Resize images according to cookie</li>
-                    </ul>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>Advantages</h2>
-                    <ul>
-                        <li class="fragment">No need for markup change</li>
-                        <li class="fragment">Images download fast</li>
-                        <li class="fragment">No double download</li>
-                        <li class="fragment">Image displayed when JS fails</li>
-                    </ul>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>Disadvantages</h2>
-                    <ul>
-                        <li class="fragment">On first page load, user will get wrong image</li>
-                        <li class="fragment">Cachebility issues</li>
-                        <li class="fragment">Same domain restriction</li>
-                        <li class="fragment">Resizes are not taken into account</li>
-                    </ul>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>LQIP</h2>
-                    Low Quality Image Placeholder
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>Advantages</h2>
-                    <ul>
-                        <li class="fragment">LQ images download fast. Prog JPEG-like</li>
-                        <li class="fragment">Can work with no server side logic</li>
-                        <li class="fragment">LQ image displayed when JS fails</li>
-                    </ul>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>Disadvantages</h2>
-                    <ul>
-                        <li class="fragment">Double download, so some BW waste</li>
-                        <li class="fragment">Markup contains multiple resources</li>
-                        <li class="fragment">Final quality image download starts late (near DCL)</li>
-                    </ul>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
                     <h2>Picturefill</h2>
                     Based of the <code>&lt;picture&gt;</code> markup pattern
                     <aside class="notes">
@@ -446,16 +371,6 @@
 &lt;script src="picturefill.js"&gt;&lt;/script&gt; </code></pre>
                 </section>
                 <section>
-                    <h2>What does it do?</h2>
-                    <ul>
-                        <li class="fragment">Meant for art-direction</li>
-                        <li class="fragment">Can do viewport switching when abused</li>
-                        <li class="fragment">DPR switching using data-srcset in an experimental branch</li>
-                    </ul>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
                     <h2>Advantages</h2>
                     <ul>
                         <li class="fragment">No double download</li>
@@ -477,7 +392,11 @@
 				</section>
                 <section>
                     <h2>x-picture</h2>
-                    Web components based solution
+                    <ul>
+                        <li class="fragment">Web components based <code>&lt;picture&gt;</code> polyfill</li>
+                        <li class="fragment">Image download triggered when element is parsed (in supporting browsers)</li>
+                        <li class="fragment">Depends on polymer</li>
+                    </ul>
                     <aside class="notes">
                     </aside>
 				</section>
@@ -502,31 +421,56 @@
 &lt;/html&gt;</code></pre>
                 </section>
                 <section>
-                    <h2>Advantages vs. Picturefill</h2>
+                    <h2>LQIP</h2>
+                    <p>Low Quality Image Placeholder</p>
                     <ul>
-                        <li class="fragment">Slightly less verbose</li>
-                        <li class="fragment">Image download can start as soon the the image is parsed (in supporting browsers)</li>
+                        <li class="fragment">LQ images download starts early</li>
+                        <li class="fragment">JS later on switches to higher quality images (prog JPEG effect)</li>
+                        <li class="fragment">Double download, so some BW waste</li>
+                        <li class="fragment">LQ image displayed when JS fails</li>
                     </ul>
                     <aside class="notes">
                     </aside>
 				</section>
                 <section>
-                    <h2>Disadvantages vs. Picturefill</h2>
+                    <h2>BBC - imager.js</h2>
+                    A mix-and-match of previous techniques
                     <ul>
-                        <li class="fragment">Depends on Polymer</li>
+                        <li class="fragment">A fallback low-quality image</li>
+                        <li class="fragment">Uses RAF to poll for DOM changes</li>
+                        <li class="fragment">Waits until layout to download</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Compressive images</h2>
+                    <ul>
+                        <li class="fragment">No markup, no JS</li>
+                        <li class="fragment">Take 2x images</li>
+                        <li class="fragment">Compress them to LQ</li>
+                        <li class="fragment">Let browser handle resize</li>
+                        <li class="fragment">Looks good on retina</li>
+                        <li class="fragment">Not bigger than 1x image</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+				</section>
+                <section>
+                    <h2>Downsides</h2>
+                    <ul>
+                        <li class="fragment">Memory footprint</li>
+                        <li class="fragment">Decoding and resizing speed</li>
+                        <li class="fragment">"Looks good" is subjective</li>
+                        <li class="fragment">Only DPR switching, up to 2x</li>
                     </ul>
                     <aside class="notes">
                     </aside>
 				</section>
                 <section>
                     <h2>Mobify.js</h2>
-                    A whole new level of Bat-sh*t-loco-insane™ hack
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>What?</h2>
-                    Enables script access to HTML document <strong>before</strong> preloder or parser see it
+                    <p>A whole new level of Bat-sh*t-loco-insane™ hack</p>
+                    <p>Enables script access to HTML document <strong>before</strong> preloder or parser see it</p>
                     <aside class="notes">
                     </aside>
 				</section>
@@ -566,18 +510,6 @@
                     </aside>
 				</section>
                 <section>
-                    <h2>BBC - imager.js</h2>
-                    A mix-and-match of previous techniques
-                    <ul>
-                        <li class="fragment">A fallback low-quality image</li>
-                        <li class="fragment">Uses RAF to poll for DOM changes</li>
-                        <li class="fragment">Waits until layout to download</li>
-                        <li class="fragment">Page resize may trigger resource change</li>
-                    </ul>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
                     <h2>Service Worker</h2>
                     <img src="resources/service_worker.jpg">
                     <aside class="notes">
@@ -610,85 +542,10 @@
                     </aside>
 				</section>
                 <section>
-                    <h2>Compressive images</h2>
-                    <ul>
-                        <li class="fragment">No markup, no JS</li>
-                        <li class="fragment">Take 2x images</li>
-                        <li class="fragment">Compress them to LQ</li>
-                        <li class="fragment">Let browser handle resize</li>
-                        <li class="fragment">Looks good on retina</li>
-                        <li class="fragment">Not bigger than 1x image</li>
-                    </ul>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>Downsides</h2>
-                    <ul>
-                        <li class="fragment">Memory footprint</li>
-                        <li class="fragment">Decoding and resizing speed</li>
-                        <li class="fragment">"Looks good" is subjective</li>
-                        <li class="fragment">Only DPR switching, up to 2x</li>
-                    </ul>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>Bandwidth testing</h2>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>Active bandwidth testing </h2>
-                    e.g. foresight.js
-                    <ul>
-                        <li class="fragment">Download an object and measure</li>
-                        <li class="fragment">Download images according to measured BW</li>
-                        <li class="fragment">Adds a blocking, useless resource</li>
-                    </ul>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>Should I do that???</h2>
-                    <p class="fragment"><img src="resources/snoop-no.gif"></p>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>Passive bandwidth testing</h2>
-                    <ul>
-                        <li class="fragment">Measure HTML download time - NavTiming</li>
-                        <li class="fragment">Download images according to measured BW</li>
-                        <li class="fragment">Less bad, but still not a good idea</li>
-                    </ul>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>Related stuff</h2>
-                    <ul>
-                        <li class="fragment">Image resizing services</li>
-                        <li class="fragment">CMS plugins</li>
-                        <li class="fragment">Grunt plugins</li>
-                    </ul>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>How to decide?</h2>
-                    <ul>
-                        <li class="fragment">Can I modify the page at all?</li>
-                        <li class="fragment">Can I modify the markup to contain the image data?</li>
-                        <li class="fragment">Can I control the server-side serving the images?</li>
-                    </ul>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
                     <h2>Performance take-aways</h2>
                     <ul>
-                        <li class="fragment">Using <code>src</code> results in a download</li>
+                        <li class="fragment">Using <code>src</code> results in a double download</li>
+                        <li class="fragment">Not using <code>src</code> means fallback is not guarantied</li>
                         <li class="fragment">Start downloading images ASAP</li>
                         <li class="fragment">Measure perf impact: network, memory and decoding</li>
                     </ul>
