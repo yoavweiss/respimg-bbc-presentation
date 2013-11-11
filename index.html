@@ -39,8 +39,8 @@
 				<section>
 					<h1>Responsive Images Techniques &amp; Beyond</h1>
                     <p> <a href="https://twitter.com/yoavweiss">Yoav Weiss</a></p>
-                    <p>Velocity EU - London, November 2013</p>
-                    <p><a href="https://yoavweiss.github.io/velocity-eu-13-presentation/">yoavweiss.github.io/velocity-eu-13-presentation</a></p>
+                    <p>BBC - London, November 2013</p>
+                    <p><a href="https://yoavweiss.github.io/respimg-bbc-presentation/">yoavweiss.github.io/respimg-bbc-presentation</a></p>
                     <aside class="notes">
                         here to talk about responsive images, why they're important, what are the use cases and what you can do about it today.
                         Then I'll also give an overview of what the future might look like
@@ -131,13 +131,6 @@
                     </aside>
 				</section>
                 <section>
-                    <h2>Well...</h2>
-                    <p><img src="resources/faceplant.gif"></p>
-                    <aside class="notes">
-                        That turned out to be... sub-optimal.
-                    </aside>
-				</section>
-                <section>
                     <h2>This led to
                     <span class="fragment" style="font-size: 1.75em">BLOAT!!!</></h2>
                     <p><img src="resources/bloat.jpg"></p>
@@ -180,61 +173,14 @@
                     </aside>
                 </section>
                 <section>
-                    <h2>How can we measure?</h2>
-                    <aside class="notes">
-                        We need to run a perf budget, with no way to measure waste
-                    </aside>
-				</section>
-                <section>
                     <h2>Sizer Soze</h2>
-                    <img src="resources/keizer.jpg">
-                    <aside class="notes">
-                        Following a post by grigs, hacked together on a saturday morning
-                    </aside>
-				</section>
-                <section>
-                    <h2>What??</h2>
                     <p>Measures the difference between current images &amp; perfectly sized images</p>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>How does it work?</h2>
                     <ul>
                         <li class="fragment">Download a page using phantomJS</li>
                         <li class="fragment">Look at image dimensions</li>
                         <li class="fragment">Download the images</li>
                         <li class="fragment">Resize to displayed dimensions</li>
                     <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>SSAAS</h2>
-                    <a href="http://sizersoze.org">sizersoze.org</a>
-                    <aside class="notes">
-                        Built with help of awesome people from the RICG and the Filament Group.
-                        Special thanks to Sven Read for the design and Jeff Lembeck for the frontend work.
-                    </aside>
-				</section>
-                <section>
-                    <h2>Demo time!</h2>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>Give it a try!</h2>
-                    <p><a href="http://sizersoze.org">sizersoze.org</a></p>
-                    <p class="fragment">But please be patient!</p>
-                    <aside class="notes">
-                        This is the first time this sees any kind of non-test traffic, so I expect it to choke :)
-                    </aside>
-				</section>
-                <section>
-                    <h2>If you want to help out</h2>
-                    <a href="https://github.com/yoavweiss/Sizer-Soze">github.com/yoavweiss/Sizer-Soze</a>
-                    <a href=https://github.com/ResponsiveImagesCG/Sizer-Soze-frontend/">github.com/ResponsiveImagesCG/Sizer-Soze-frontend</a>
-                    <aside class="notes">
-                        Very much in the "pet project" phase, so bug reports, etc will be appreciated
                     </aside>
 				</section>
                 <section>
@@ -271,21 +217,6 @@
                         <li class="fragment">Very small resizes can be handled differently</li>
                     </ul>
                     <p class="fragment"><small><a href="http://timkadlec.com/2013/11/why_we_need_responsive_images_part_deux">tkadlec.com</a></small></p>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>But it's not on the main thread</h2>
-                    <img src="resources/troll_tiny.png">
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>It still takes CPU time</h2>
-                    <ul>
-                        <li class="fragment">Scrolling lag observed</li>
-                        <li class="fragment">Battery life may suffer</li>
-                    </ul>
                     <aside class="notes">
                     </aside>
 				</section>
@@ -352,7 +283,6 @@
                     </aside>
                 </section>
                 <section>
-                    ?????Talk about survey???
                     <img src="resources/respimg_survey.png">
                     <aside class="notes">
                         Survey - 40% of devs hack their images to do art direction
@@ -366,42 +296,10 @@
                     </aside>
 				</section>
                 <section>
-                    <h2>Other use cases</h2>
-                    <ul>
-                        <li class="fragment">Monochrome</li>
-                        <li class="fragment">Print</li>
-                        <li class="fragment">Image format fallback</li>
-                    </ul>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
                     <h2>Constraints</h2>
                     Must play well with preloader
                     <aside class="notes">
                         Since the goal is performance afterall
-                    </aside>
-				</section>
-                <section>
-                    <h2>Use cases doc</h2>
-                    <a href="http://usecases.responsiveimages.org">usecases.responsiveimages.org</a>
-                    <p>Released as a W3C WG note</p>
-                    <aside class="notes">
-                        Check out the full use cases document if you want to learn more
-                        We got upgraded, since there's no CG note
-                    </aside>
-				</section>
-                <section>
-                    <h2>So let's hack around the problem</h2>
-                    <div class="fragment"><p>AKA:</p><img src="resources/YUNOJS.jpg"></div>
-                    <aside class="notes">
-                        So, when first encountered this issue, Web devs tries to route around it using the regular methods.
-                        But something got in their way
-                    </aside>
-				</section>
-                <section>
-                    <h2>But first...</h2>
-                    <aside class="notes">
                     </aside>
 				</section>
                 <section>
@@ -444,22 +342,6 @@
                     </aside>
 				</section>
                 <section>
-                    <h2>SmashingMag - With preloader</h2>
-                    <img src="resources/preloader.png">
-                    DCL - 2390; PLT - 3585
-                    <br><br>
-                    <small>Using <a href="http://ericduran.github.io/chromeHAR/">chromeHAR</a></small>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>SmashingMag - No preloader</h2>
-                    <img src="resources/nopreloader.png">
-                    DCL - 5395; PLT - 7193
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
                     <h2>BBC - With preloader</h2>
                     <img src="resources/bbc_preloader.png">
                     DCL - 5022; PLT - 5980
@@ -476,70 +358,20 @@
                     </aside>
 				</section>
                 <section>
-                    <h2>Going back to images</h2>
-                    <p>People came up with some JS based ideas</p>
-                    <div class="fragment"><p>None of them really worked</p>
-                        <img src="resources/problem-solving.gif"></div>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>Turns out</h2>
-                    <p>You can't modify resources with JS before the preloader</p>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>Early days techniques</h2>
+                    <h2>Responsive images techniques</h2>
                     <aside class="notes">
                     </aside>
 				</section>
                 <section>
                     <h2>Cookie based</h2>
-                    Doesn't work on first load
-                    <aside class="notes">
-                        The cookie is not guarantied to be set on the page's images, since they go into the download queue before it is set
-                    </aside>
-				</section>
-                <section>
-                    <h2>Base href modification</h2>
-                    Terminates in-flight preloaded requests
-                    <aside class="notes">
-                        If the base is modified, all realtive URLs the preloader kicked off must be terminated. That's a perf disaster.
-                    </aside>
-				</section>
-                <section>
-                    <h2>Switching src value</h2>
-                    Double download regardless of preloader...
-                    <aside class="notes">
-                        Even without the proloader, the parser triggers an img request as soon as the attribute is parsed.
-                    </aside>
-				</section>
-                <section>
-                    <h2>This led to FRUSTRATION</h2>
-                    <img src="resources/so-mad-i-could.gif">
+                    <ul>
+                        <li class="fragment">e.g. Adaptive Images</li>
+                        <li class="fragment">Set a cookie at the header</li>
+                        <li class="fragment">Resize images according to cookie</li>
+                    </ul>
                     <aside class="notes">
                     </aside>
 				</section>
-                <section>
-                    <h2>Working techniques</h2>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>Cookie based</h2>
-                    e.g. adaptive-images.com
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>Example</h2>
-                    <pre><code class="javascript">&lt;script&gt;
-document.cookie = 'width=' + screen.width + 
-                  ';height='screen.height + 
-                  ';dpr=' + devicePixelRatio;&lt;/script&gt;
-&lt;img src="cat.jpg"&gt; </code></pre>
-                </section>
                 <section>
                     <h2>Advantages</h2>
                     <ul>
@@ -557,8 +389,6 @@ document.cookie = 'width=' + screen.width +
                         <li class="fragment">On first page load, user will get wrong image</li>
                         <li class="fragment">Cachebility issues</li>
                         <li class="fragment">Same domain restriction</li>
-                        <li class="fragment">Server side solution which may or may not fit your stack</li>
-                        <li class="fragment">Server-side logic/directory structure to map viewport dimensions to image dimensions</li>
                         <li class="fragment">Resizes are not taken into account</li>
                     </ul>
                     <aside class="notes">
@@ -570,20 +400,6 @@ document.cookie = 'width=' + screen.width +
                     <aside class="notes">
                     </aside>
 				</section>
-                <section>
-                    <h2>Example</h2>
-                    <pre><code>&lt;img src="cat_lq.jpg" data-normal-src="cat.jpg" data-hq-src="cat_hq.jpg"&gt;
-...
-&lt;script&gt;
-    var images = document.getElementsByTagName("img");
-    var imagesLen = images.length;
-    var hd = screen.width > 800 || devicePixelRatio > 1;
-    for(var i = 0; i < images.length; i++)
-        images[i].src = hd?
-                        images[i].dataset.hqSrc:
-                        images[i].dataset.normalSrc;
-&lt;/script&gt; </code></pre>
-                </section>
                 <section>
                     <h2>Advantages</h2>
                     <ul>
@@ -612,21 +428,6 @@ document.cookie = 'width=' + screen.width +
 				</section>
                 <section>
                     <h2>Example</h2>
-                    <pre><code>&lt;span data-picture&gt;
-    &lt;span data-media="screen and (min-width:1600px)"
-          data-src="wide.jpg"&gt;&lt;/span&gt; 
-    &lt;span data-media="screen and (min-width:800px)"
-          data-src="middle.jpg"&gt;&lt;/span&gt;
-    &lt;span data-media="screen and (min-width:400px)"
-          data-src="narrow.jpg"&gt;&lt;/span&gt;
-    &lt;span data-src="tiny.jpg"&gt;&lt;/span&gt;
-    &lt;noscript&gt; &lt;img src="fallback.jpg"&gt;&lt;/noscript&gt;
-&lt;/span&gt;
-...
-&lt;script src="picturefill.js"&gt;&lt;/script&gt;</code></pre>
-                </section>
-                <section>
-                    <h2>Example #2</h2>
                     <pre><code>&lt;span data-picture&gt;
     &lt;span data-media="screen and (min-width:1600px)"
           data-srcset="wide1x.jpg 1x,
