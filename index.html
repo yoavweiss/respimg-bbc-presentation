@@ -87,7 +87,7 @@
                     </aside>
                 </section>
                 <section>
-                    <h2>Then - iPhone</h2>
+                    <h2>Followed by - iPhone</h2>
                     <p><img src="resources/cnn-regular-vs-mobile1.jpg"></p>
                     <aside class="notes">
                     </aside>
@@ -347,7 +347,13 @@
 				</section>
                 <section>
                     <h2>Picturefill</h2>
-                    Based of the <code>&lt;picture&gt;</code> markup pattern
+                    <p>Based of the <code>&lt;picture&gt;</code> markup pattern<p>
+                    <ul>
+                        <li class="fragment">Multiple resources per image</li>
+                        <li class="fragment">Defined by MQ and DPR</li>
+                        <li class="fragment">No <code>src</code>. Single image download</li>
+                        <li class="fragment">Starts after DCL</li>
+                    </ul>
                     <aside class="notes">
                     </aside>
 				</section>
@@ -370,26 +376,6 @@
 ...
 &lt;script src="picturefill.js"&gt;&lt;/script&gt; </code></pre>
                 </section>
-                <section>
-                    <h2>Advantages</h2>
-                    <ul>
-                        <li class="fragment">No double download</li>
-                        <li class="fragment">With scripts disabled, there's a fallback</li>
-                        <li class="fragment">Using MQs which is a familiar pattern to authors</li>
-                    </ul>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>Disadvantages</h2>
-                    <ul>
-                        <li class="fragment">Markup contains multiple resources</li>
-                        <li class="fragment">MQs in the markup can get verbose</li>
-                        <li class="fragment">Image download starts only after DCL</li>
-                    </ul>
-                    <aside class="notes">
-                    </aside>
-				</section>
                 <section>
                     <h2>x-picture</h2>
                     <ul>
@@ -446,12 +432,12 @@
                 <section>
                     <h2>Compressive images</h2>
                     <ul>
-                        <li class="fragment">No markup, no JS</li>
                         <li class="fragment">Take 2x images</li>
                         <li class="fragment">Compress them to LQ</li>
                         <li class="fragment">Let browser handle resize</li>
                         <li class="fragment">Looks good on retina</li>
                         <li class="fragment">Not bigger than 1x image</li>
+                        <li class="fragment">No markup, no JS</li>
                     </ul>
                     <aside class="notes">
                     </aside>
@@ -468,79 +454,84 @@
                     </aside>
 				</section>
                 <section>
-                    <h2>Mobify.js</h2>
-                    <p>A whole new level of Bat-sh*t-loco-insane™ hack</p>
-                    <p>Enables script access to HTML document <strong>before</strong> preloder or parser see it</p>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>How?????</h2>
-                    <ul>
-                        <li class="fragment">Inline script at the doc head injects a &lt;plaintext&gt; tag and downloads mobify.js</li>
-                        <li class="fragment">Browser treats the rest of the document as text</li>
-                        <li class="fragment">HTML chunks are read &amp; processed as they're downloaded</li>
-                        <li class="fragment">Once HTML is done, document.open() and document.write() the new HTML</li>
-                        <li class="fragment">Page load starts over, preloader and all</li>
-                    </ul>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>Advantages</h2>
-                    <ul>
-                        <li class="fragment">No markup changes needed</li>
-                        <li class="fragment">No double download</li>
-                        <li class="fragment">Preloader works (after a delay)</li>
-                        <li class="fragment">No JS means no optimization, but everything works</li>
-                    </ul>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>Disadvantages</h2>
-                    <ul>
-                        <li class="fragment">Blocking JS at the page's start</li>
-                        <li class="fragment">Entire HTML is downloaded before parsing start</li>
-                        <li class="fragment">Compatibility issues</li>
-                        <li class="fragment">Lots of invasive JS may be hard on legacy devices</li>
-                        <li class="fragment">JS failure after plaintext injection can result in a blank page</li>
-                    </ul>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>Service Worker</h2>
-                    <img src="resources/service_worker.jpg">
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>What?</h2>
-                    <ul>
-                        <li class="fragment">Originally, an offline API</li>
-                        <li class="fragment">Enables URL rewriting in the browser</li>
-                        <li class="fragment">Implementation underway in FF &amp; Chrome</li>
-                    </ul>
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>Let's use that to hack responsive images!!!</h2>
-                    <img src="resources/yay.gif">
-                    <aside class="notes">
-                    </aside>
-				</section>
-                <section>
-                    <h2>Unfortunately</h2>
-                    <ul>
-                        <li class="fragment">Doesn't (yet?) support first load</li>
-                        <li class="fragment">Can't access <code>window</code></li>
-                        <li class="fragment">Browser support will take time</li>
-                    </ul>
-                    <aside class="notes">
-                    </aside>
-				</section>
+                    <section>
+                        <h2>Do we have time?</h2>
+                    </section>
+                    <section>
+                        <h2>Mobify.js</h2>
+                        <p>A whole new level of Bat-sh*t-loco-insane™ hack</p>
+                        <p>Enables script access to HTML document <strong>before</strong> preloder or parser see it</p>
+                        <aside class="notes">
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>How?????</h2>
+                        <ul>
+                            <li class="fragment">Inline script at the doc head injects a &lt;plaintext&gt; tag and downloads mobify.js</li>
+                            <li class="fragment">Browser treats the rest of the document as text</li>
+                            <li class="fragment">HTML chunks are read &amp; processed as they're downloaded</li>
+                            <li class="fragment">Once HTML is done, document.open() and document.write() the new HTML</li>
+                            <li class="fragment">Page load starts over, preloader and all</li>
+                        </ul>
+                        <aside class="notes">
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Advantages</h2>
+                        <ul>
+                            <li class="fragment">No markup changes needed</li>
+                            <li class="fragment">No double download</li>
+                            <li class="fragment">Preloader works (after a delay)</li>
+                            <li class="fragment">No JS means no optimization, but everything works</li>
+                        </ul>
+                        <aside class="notes">
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Disadvantages</h2>
+                        <ul>
+                            <li class="fragment">Blocking JS at the page's start</li>
+                            <li class="fragment">Entire HTML is downloaded before parsing start</li>
+                            <li class="fragment">Compatibility issues</li>
+                            <li class="fragment">Lots of invasive JS may be hard on legacy devices</li>
+                            <li class="fragment">JS failure after plaintext injection can result in a blank page</li>
+                        </ul>
+                        <aside class="notes">
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Service Worker</h2>
+                        <img src="resources/service_worker.jpg">
+                        <aside class="notes">
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>What?</h2>
+                        <ul>
+                            <li class="fragment">Originally, an offline API</li>
+                            <li class="fragment">Enables URL rewriting in the browser</li>
+                            <li class="fragment">Implementation underway in FF &amp; Chrome</li>
+                        </ul>
+                        <aside class="notes">
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Let's use that to hack responsive images!!!</h2>
+                        <img src="resources/yay.gif">
+                        <aside class="notes">
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Unfortunately</h2>
+                        <ul>
+                            <li class="fragment">Doesn't (yet?) support first load</li>
+                            <li class="fragment">Can't access <code>window</code></li>
+                            <li class="fragment">Browser support will take time</li>
+                        </ul>
+                        <aside class="notes">
+                        </aside>
+                    </section>
+                </section>
                 <section>
                     <h2>Performance take-aways</h2>
                     <ul>
